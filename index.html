@@ -549,7 +549,7 @@
           </div>
           <div class="stat-row-light">
             <div><b>Aug 24 – Sep 12</b><span>Programme dates</span></div>
-            <div><b>₦50,000</b><span>One fee, every programme</span></div>
+            <div><b>NGN 50,000</b><span>One fee, every programme</span></div>
             <div><b id="hero-seats-left">20</b><span>Seats, first cohort</span></div>
           </div>
         </div>
@@ -652,7 +652,7 @@
       <div class="section-head center" style="margin-left:auto;margin-right:auto;">
         <span class="eyebrow">THE HOLIDAY FIVE</span>
         <h2>Five programmes. Four seats each.</h2>
-        <p>This first cohort is capped at 20 students — 4 per programme — so every instructor gives each child real attention. ₦50,000 covers any one programme, in full.</p>
+        <p>This first cohort is capped at 20 students — 4 per programme — so every instructor gives each child real attention. NGN 50,000 covers any one programme, in full.</p>
       </div>
       <div class="prog-grid">
 
@@ -665,7 +665,7 @@
           <p class="prog-focus">AI literacy, prompting, research, creativity and responsible use.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child understands what AI actually is, and uses it intelligently for learning, research and problem-solving.</div>
           <span class="seat-tag" data-seat-tag="ai-explorer">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="ai-explorer" data-course-name="AI Explorer">Register — ₦50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="ai-explorer" data-course-name="AI Explorer">Register — NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="young-speaker">
@@ -677,7 +677,7 @@
           <p class="prog-focus">Public speaking, confidence, storytelling and presentation.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child becomes noticeably more comfortable expressing ideas and presenting in front of people.</div>
           <span class="seat-tag" data-seat-tag="young-speaker">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="young-speaker" data-course-name="Young Speaker">Register — ₦50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="young-speaker" data-course-name="Young Speaker">Register — NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="code-create">
@@ -689,7 +689,7 @@
           <p class="prog-focus">Coding fundamentals, game creation and digital building.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child learns core coding concepts by actually building something, not just reading theory.</div>
           <span class="seat-tag" data-seat-tag="code-create">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="code-create" data-course-name="Code &amp; Create">Register — ₦50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="code-create" data-course-name="Code &amp; Create">Register — NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="digital-creator">
@@ -701,7 +701,7 @@
           <p class="prog-focus">Canva, video editing, digital creativity and content creation.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child leaves with real, shareable creative work — not just knowledge of a tool.</div>
           <span class="seat-tag" data-seat-tag="digital-creator">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="digital-creator" data-course-name="Digital Creator">Register — ₦50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="digital-creator" data-course-name="Digital Creator">Register — NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="young-entrepreneur">
@@ -713,7 +713,7 @@
           <p class="prog-focus">Business thinking, money basics, problem-solving and pitching.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child develops a simple business idea and learns how to explain and pitch it.</div>
           <span class="seat-tag" data-seat-tag="young-entrepreneur">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="young-entrepreneur" data-course-name="Young Entrepreneur">Register — ₦50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="young-entrepreneur" data-course-name="Young Entrepreneur">Register — NGN 50,000</button>
         </div>
 
         <div class="prog-card" style="background:var(--navy);border:none;justify-content:center;align-items:flex-start;">
@@ -868,11 +868,11 @@
         </details>
         <details>
           <summary>How do I register and pay?</summary>
-          <p>Pick a programme and click Register. Fill in your and your child's details, and you'll be shown our account details to pay the ₦50,000 fee by direct bank transfer — there's no card checkout. After paying, upload your proof of payment on the same page; that step is compulsory. Once we verify it (usually within 24 hours), your Register button turns into a Join Class button linking to that programme's WhatsApp group.</p>
+          <p>Pick a programme and click Register. Fill in your and your child's details, and you'll be shown our account details to pay the NGN 50,000 fee by direct bank transfer — there's no card checkout. After paying, upload your proof of payment on the same page; that step is compulsory. Once we verify it (usually within 24 hours), your Register button turns into a Join Class button linking to that programme's WhatsApp group.</p>
         </details>
         <details>
           <summary>Is the fee the same for every programme?</summary>
-          <p>Yes — ₦50,000 covers any one of the five programmes in full, including the certificate and parent progress report. Registration and onboarding close on 22 August.</p>
+          <p>Yes — NGN 50,000 covers any one of the five programmes in full, including the certificate and parent progress report. Registration and onboarding close on 22 August.</p>
         </details>
         <details>
           <summary>What if my proof of payment hasn't been verified yet?</summary>
@@ -1180,9 +1180,9 @@ function renderDetailsStep(courseId) {
         child_name: reg.childName, child_age: age, status: 'pending_payment',
       });
       if (error) {
-        errEl.textContent = error.message.includes('capacity')
+        errEl.textContent = error.message.includes('capacity_reached')
           ? 'This programme just filled up — please pick another.'
-          : 'Something went wrong saving your registration. Please try again.';
+          : `Something went wrong saving your registration: ${error.message}`;
         errEl.classList.add('show');
         console.error(error);
         return;
