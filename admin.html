@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nesis Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F5FB; --paper:#FFFFFF; --ink:#13122A; --ink-soft:#54536F; --ink-faint:#8B89A6;
+    --navy:#100F26; --violet:#6C4CF1; --violet-deep:#4F35C4; --violet-tint:#EFE9FD;
+    --amber:#FFB534; --whatsapp:#28D267; --whatsapp-deep:#1FA653; --red:#E4574C;
+    --line:rgba(19,18,42,0.10); --radius:16px; --shadow:0 20px 50px -20px rgba(19,18,42,0.25);
+    --display:'Space Grotesk', sans-serif; --body:'Inter', sans-serif; --mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-0.01em;}
+  button{font-family:var(--body);}
+  .mono{font-family:var(--mono);}
+  a{color:inherit;}
+
+  /* ---- login screen ---- */
+  #login-screen{
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    background:radial-gradient(900px 500px at 20% -10%, rgba(108,76,241,0.18), transparent 60%), var(--bg);
+    padding:20px;
+  }
+  .login-card{background:var(--paper);border-radius:24px;padding:40px;max-width:380px;width:100%;box-shadow:var(--shadow);border:1px solid var(--line);}
+  .login-logo{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:22px;margin-bottom:6px;}
+  .logo-mark{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--violet),var(--amber));display:flex;align-items:center;justify-content:center;color:#fff;font-family:var(--display);font-weight:700;font-size:15px;}
+  .login-card p.sub{font-size:13.5px;color:var(--ink-soft);margin:0 0 22px;}
+  .field{margin-top:14px;}
+  .field label{display:block;font-size:12.5px;font-weight:600;margin-bottom:6px;}
+  .field input{width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--line);font-size:14px;background:var(--bg);color:var(--ink);}
+  .field input:focus{outline:2px solid var(--violet);outline-offset:1px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:12px;font-weight:600;font-size:14.5px;border:none;cursor:pointer;transition:.15s;}
+  .btn-violet{background:var(--violet);color:#fff;}
+  .btn-violet:hover{background:var(--violet-deep);}
+  .btn-violet:disabled{background:var(--line);color:var(--ink-faint);cursor:not-allowed;}
+  .btn-block{width:100%;margin-top:20px;}
+  .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink-soft);}
+  .btn-ghost:hover{border-color:var(--violet);color:var(--violet-deep);}
+  .btn-sm{padding:7px 14px;border-radius:9px;font-size:12.5px;font-weight:600;border:1px solid var(--line);background:#fff;color:var(--ink-soft);cursor:pointer;}
+  .btn-sm:hover{border-color:var(--violet);color:var(--violet-deep);}
+  .btn-verify{background:var(--whatsapp);color:#08240F;border-color:transparent;}
+  .btn-verify:hover{background:var(--whatsapp-deep);color:#08240F;}
+  .btn-reject{background:#FCE7E5;color:#B23327;border-color:transparent;}
+  .btn-reject:hover{background:#F8D2CF;}
+  .form-error{color:#C6362A;font-size:12.5px;margin-top:12px;display:none;background:#FCE7E5;padding:9px 12px;border-radius:9px;}
+  .form-error.show{display:block;}
+  .form-success{color:#0F7A38;font-size:12.5px;margin-top:12px;display:none;background:#E4FBEC;padding:9px 12px;border-radius:9px;}
+  .form-success.show{display:block;}
+  .demo-flag{background:#FFF4E0;color:#8A5A00;border-radius:10px;padding:10px 12px;font-size:12px;margin-top:16px;line-height:1.5;}
+
+  /* ---- dashboard shell ---- */
+  #dashboard{display:none;min-height:100vh;}
+  #dashboard.open{display:block;}
+  header.topbar{
+    background:var(--navy);color:#fff;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;
+    position:sticky;top:0;z-index:50;
+  }
+  .topbar-logo{display:flex;align-items:center;gap:9px;font-family:var(--display);font-weight:700;font-size:18px;}
+  .topbar-right{display:flex;align-items:center;gap:14px;font-size:13px;color:#B6B4D6;}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px;}
+  .tabs{display:flex;gap:8px;margin:28px auto 0;max-width:1100px;padding:0 24px;}
+  .tab-btn{
+    padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:var(--paper);
+    font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;
+  }
+  .tab-btn.active{background:var(--violet);border-color:var(--violet);color:#fff;}
+  .tab-panel{display:none;padding:28px 0 60px;}
+  .tab-panel.active{display:block;}
+
+  .stat-cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:24px;}
+  .stat-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;}
+  .stat-card b{display:block;font-family:var(--display);font-size:22px;}
+  .stat-card span{font-size:12px;color:var(--ink-faint);}
+
+  .filter-bar{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+  .filter-bar select{padding:9px 12px;border-radius:10px;border:1px solid var(--line);font-size:13.5px;background:var(--paper);color:var(--ink);}
+
+  .reg-row{
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:10px;flex-wrap:wrap;
+  }
+  .reg-main b{font-size:15px;}
+  .reg-main .mono{font-size:12px;color:var(--ink-faint);margin-left:8px;}
+  .reg-sub{font-size:12.5px;color:var(--ink-soft);margin-top:4px;}
+  .reg-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+  .status-badge{display:inline-flex;align-items:center;gap:7px;padding:6px 13px;border-radius:999px;font-size:12px;font-weight:600;}
+  .status-badge.pending{background:#FFF4E0;color:#8A5A00;}
+  .status-badge.verified{background:#E4FBEC;color:#0F7A38;}
+  .status-badge.rejected{background:#FCE7E5;color:#B23327;}
+  .status-badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .muted{font-size:12px;color:var(--ink-faint);}
+  .empty-state{text-align:center;padding:50px 20px;color:var(--ink-faint);font-size:14px;}
+
+  .panel-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:20px;}
+  .panel-card h3{font-size:17px;margin-bottom:14px;}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+
+  .mat-list{display:flex;flex-direction:column;gap:8px;margin-top:16px;}
+  .mat-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;font-size:13.5px;}
+  .mat-row a{color:var(--violet-deep);font-weight:600;text-decoration:none;}
+  .mat-row a:hover{text-decoration:underline;}
+
+  .settings-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-top:1px solid var(--line);gap:14px;}
+  .settings-row:first-child{border-top:none;}
+  .settings-row label{font-size:13.5px;font-weight:600;flex-shrink:0;width:150px;}
+  .settings-row input{flex:1;padding:9px 12px;border-radius:9px;border:1px solid var(--line);font-size:13.5px;font-family:var(--mono);}
+
+  @media(max-width:900px){
+    .stat-cards{grid-template-columns:repeat(2,1fr);}
+    .grid-2{grid-template-columns:1fr;}
+    .reg-row{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <div class="login-logo"><span class="logo-mark">N</span>Nesis Admin</div>
+    <p class="sub">Sign in with the admin account created in Supabase Auth.</p>
+    <form id="login-form">
+      <div class="field"><label>Email</label><input required type="email" id="login-email" autocomplete="username"></div>
+      <div class="field"><label>Password</label><input required type="password" id="login-password" autocomplete="current-password"></div>
+      <div class="form-error" id="login-error"></div>
+      <button type="submit" class="btn btn-violet btn-block" id="login-btn">Sign in</button>
+    </form>
+    <div id="login-demo-flag"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+  <header class="topbar">
+    <div class="topbar-logo"><span class="logo-mark">N</span>Nesis Admin</div>
+    <div class="topbar-right">
+      <span id="admin-email"></span>
+      <button class="btn-sm" id="logout-btn" style="background:rgba(255,255,255,0.08);color:#fff;border-color:rgba(255,255,255,0.16);">Sign out</button>
+    </div>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="registrations">Registrations</button>
+    <button class="tab-btn" data-tab="materials">Materials</button>
+    <button class="tab-btn" data-tab="settings">Settings</button>
+  </div>
+
+  <div class="wrap">
+
+    <!-- REGISTRATIONS -->
+    <section class="tab-panel active" id="panel-registrations">
+      <div class="stat-cards" id="reg-stat-cards"></div>
+      <div class="filter-bar">
+        <select id="filter-course">
+          <option value="">All programmes</option>
+        </select>
+        <select id="filter-status">
+          <option value="">All statuses</option>
+          <option value="pending_payment">Pending payment</option>
+          <option value="pending_verification">Pending verification</option>
+          <option value="verified">Verified</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <button class="btn-sm" id="refresh-regs">↻ Refresh</button>
+      </div>
+      <div id="reg-list"></div>
+    </section>
+
+    <!-- MATERIALS -->
+    <section class="tab-panel" id="panel-materials">
+      <div class="panel-card">
+        <h3>Add material</h3>
+        <form id="material-form">
+          <div class="grid-2">
+            <div class="field"><label>Programme</label>
+              <select id="mat-course" required style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--line);font-size:14px;"></select>
+            </div>
+            <div class="field"><label>Type</label>
+              <select id="mat-type" required style="width:100%;padding:11px 14px;border-radius:10px;border:1px solid var(--line);font-size:14px;">
+                <option value="pdf">PDF</option>
+                <option value="image">Image</option>
+                <option value="video">Video</option>
+                <option value="link">Link</option>
+              </select>
+            </div>
+          </div>
+          <div class="field"><label>Title</label><input required id="mat-title" type="text" placeholder="e.g. Week 1 workbook"></div>
+          <div class="field"><label>Upload a file</label><input id="mat-file" type="file"></div>
+          <div class="field"><label>…or paste a link instead (e.g. YouTube, Google Drive)</label><input id="mat-url" type="url" placeholder="https://"></div>
+          <div class="form-error" id="mat-error"></div>
+          <div class="form-success" id="mat-success"></div>
+          <button type="submit" class="btn btn-violet" style="margin-top:16px;" id="mat-submit">Add material</button>
+        </form>
+        <div id="mat-demo-flag"></div>
+      </div>
+
+      <div class="panel-card">
+        <h3>Existing materials</h3>
+        <div class="filter-bar">
+          <select id="mat-filter-course"></select>
+        </div>
+        <div class="mat-list" id="mat-list"></div>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="tab-panel" id="panel-settings">
+      <div class="panel-card">
+        <h3>WhatsApp</h3>
+        <div class="settings-row"><label>Business number</label><input id="set-whatsapp-number" placeholder="2340000000000"></div>
+        <button class="btn btn-violet" id="save-whatsapp" style="margin-top:16px;">Save</button>
+        <div class="form-success" id="whatsapp-success"></div>
+      </div>
+
+      <div class="panel-card">
+        <h3>Programme WhatsApp groups</h3>
+        <div id="course-group-rows"></div>
+        <button class="btn btn-violet" id="save-groups" style="margin-top:16px;">Save all</button>
+        <div class="form-success" id="groups-success"></div>
+      </div>
+
+      <div class="panel-card">
+        <h3>Bank details</h3>
+        <div class="settings-row"><label>Account name</label><input id="set-bank-name-holder" placeholder="Nesis"></div>
+        <div class="settings-row"><label>Account number</label><input id="set-bank-account" placeholder="0000000000"></div>
+        <div class="settings-row"><label>Bank</label><input id="set-bank-name" placeholder="Your Bank"></div>
+        <button class="btn btn-violet" id="save-bank" style="margin-top:16px;">Save</button>
+        <div class="form-success" id="bank-success"></div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script src="config.js"></script>
+<script type="module">
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+
+const CONFIG = window.NESIS_CONFIG;
+const BACKEND_READY =
+  CONFIG.SUPABASE_URL.startsWith('https://') &&
+  CONFIG.SUPABASE_ANON_KEY.length > 20 &&
+  !CONFIG.SUPABASE_URL.includes('YOUR_SUPABASE_URL');
+
+if (!BACKEND_READY) {
+  document.getElementById('login-demo-flag').innerHTML =
+    '<div class="demo-flag">⚠ Supabase isn\'t configured yet in config.js. The admin panel needs a live connection to work — fill in SUPABASE_URL and SUPABASE_ANON_KEY, then reload.</div>';
+  document.getElementById('login-btn').disabled = true;
+}
+
+const supabase = BACKEND_READY ? createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY) : null;
+const COURSE_IDS = Object.keys(CONFIG.COURSES);
+
+/* ---------------- auth ---------------- */
+const loginScreen = document.getElementById('login-screen');
+const dashboard = document.getElementById('dashboard');
+
+async function checkSession() {
+  if (!BACKEND_READY) return;
+  const { data: { session } } = await supabase.auth.getSession();
+  if (session) showDashboard(session);
+}
+
+function showDashboard(session) {
+  loginScreen.style.display = 'none';
+  dashboard.classList.add('open');
+  document.getElementById('admin-email').textContent = session.user.email;
+  initDashboardData();
+}
+
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  const errEl = document.getElementById('login-error');
+  errEl.classList.remove('show');
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    errEl.textContent = error.message;
+    errEl.classList.add('show');
+    return;
+  }
+  showDashboard(data.session);
+});
+
+document.getElementById('logout-btn').addEventListener('click', async () => {
+  await supabase.auth.signOut();
+  location.reload();
+});
+
+/* ---------------- tabs ---------------- */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ---------------- shared course dropdowns ---------------- */
+function populateCourseSelect(sel, includeAll) {
+  sel.innerHTML = (includeAll ? '<option value="">All programmes</option>' : '') +
+    COURSE_IDS.map(id => `<option value="${id}">${CONFIG.COURSES[id].name}</option>`).join('');
+}
+
+/* ============================================================
+   REGISTRATIONS TAB
+   ============================================================ */
+async function loadRegistrations() {
+  const courseFilter = document.getElementById('filter-course').value;
+  const statusFilter = document.getElementById('filter-status').value;
+  let query = supabase.from('registrations').select('*').order('created_at', { ascending: false });
+  if (courseFilter) query = query.eq('course', courseFilter);
+  if (statusFilter) query = query.eq('status', statusFilter);
+  const { data, error } = await query;
+  const listEl = document.getElementById('reg-list');
+  if (error) {
+    listEl.innerHTML = `<div class="empty-state">Couldn't load registrations. ${error.message}</div>`;
+    return;
+  }
+  if (!data.length) {
+    listEl.innerHTML = `<div class="empty-state">No registrations match this filter.</div>`;
+    return;
+  }
+  listEl.innerHTML = data.map(regRowHtml).join('');
+  wireRegRowActions();
+}
+
+function statusMeta(status) {
+  return {
+    pending_payment: ['pending', 'Awaiting payment'],
+    pending_verification: ['pending', 'Pending verification'],
+    verified: ['verified', 'Verified'],
+    rejected: ['rejected', 'Rejected'],
+    cancelled: ['rejected', 'Cancelled'],
+  }[status] || ['pending', status];
+}
+
+function regRowHtml(r) {
+  const [cls, label] = statusMeta(r.status);
+  const courseName = CONFIG.COURSES[r.course]?.name || r.course;
+  return `
+    <div class="reg-row" data-id="${r.id}">
+      <div class="reg-main">
+        <div><b>${escapeHtml(r.child_name)}</b><span class="mono">${r.reference}</span></div>
+        <div class="reg-sub">${escapeHtml(r.parent_name)} · ${escapeHtml(r.parent_phone)} · ${escapeHtml(r.parent_email || '')}</div>
+        <div class="reg-sub">${courseName} · age ${r.child_age} · ${new Date(r.created_at).toLocaleDateString()}</div>
+        ${r.admin_note ? `<div class="reg-sub">Note: ${escapeHtml(r.admin_note)}</div>` : ''}
+      </div>
+      <div class="reg-actions">
+        <span class="status-badge ${cls}"><span class="dot"></span>${label}</span>
+        ${r.pop_path ? `<button class="btn-sm" data-action="view-pop" data-path="${r.pop_path}">View proof</button>` : '<span class="muted">No proof yet</span>'}
+        ${r.status === 'pending_verification' ? `
+          <button class="btn-sm btn-verify" data-action="verify" data-id="${r.id}">Verify</button>
+          <button class="btn-sm btn-reject" data-action="reject" data-id="${r.id}">Reject</button>` : ''}
+        ${r.status === 'verified' ? `<button class="btn-sm btn-reject" data-action="revoke" data-id="${r.id}">Revoke</button>` : ''}
+        ${r.status === 'rejected' ? `<button class="btn-sm btn-verify" data-action="verify" data-id="${r.id}">Verify anyway</button>` : ''}
+      </div>
+    </div>`;
+}
+
+function escapeHtml(s) {
+  return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function wireRegRowActions() {
+  document.querySelectorAll('[data-action="view-pop"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const { data, error } = await supabase.storage.from('proof-of-payment').createSignedUrl(btn.dataset.path, 300);
+      if (error) { alert('Could not open proof of payment: ' + error.message); return; }
+      window.open(data.signedUrl, '_blank');
+    });
+  });
+  document.querySelectorAll('[data-action="verify"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      const { error } = await supabase.from('registrations').update({
+        status: 'verified', verified_at: new Date().toISOString(), verified_by: session?.user?.email || null, admin_note: null,
+      }).eq('id', btn.dataset.id);
+      if (error) { alert('Could not verify: ' + error.message); return; }
+      loadRegistrations(); loadStatCards();
+    });
+  });
+  document.querySelectorAll('[data-action="reject"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const note = prompt('Optional note for why this was rejected (e.g. "amount didn\'t match"):') || null;
+      const { error } = await supabase.from('registrations').update({ status: 'rejected', admin_note: note }).eq('id', btn.dataset.id);
+      if (error) { alert('Could not reject: ' + error.message); return; }
+      loadRegistrations(); loadStatCards();
+    });
+  });
+  document.querySelectorAll('[data-action="revoke"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Revoke this verification and move it back to pending?')) return;
+      const { error } = await supabase.from('registrations').update({ status: 'pending_verification', verified_at: null, verified_by: null }).eq('id', btn.dataset.id);
+      if (error) { alert('Could not revoke: ' + error.message); return; }
+      loadRegistrations(); loadStatCards();
+    });
+  });
+}
+
+async function loadStatCards() {
+  const { data, error } = await supabase.from('registrations').select('course,status');
+  const el = document.getElementById('reg-stat-cards');
+  if (error || !data) { el.innerHTML = ''; return; }
+  el.innerHTML = COURSE_IDS.map(id => {
+    const taken = data.filter(r => r.course === id && ['pending_payment', 'pending_verification', 'verified'].includes(r.status)).length;
+    return `<div class="stat-card"><b>${taken} / ${CONFIG.CAPACITY_PER_COURSE}</b><span>${CONFIG.COURSES[id].name}</span></div>`;
+  }).join('');
+}
+
+document.getElementById('refresh-regs').addEventListener('click', () => { loadRegistrations(); loadStatCards(); });
+document.getElementById('filter-course').addEventListener('change', loadRegistrations);
+document.getElementById('filter-status').addEventListener('change', loadRegistrations);
+
+/* ============================================================
+   MATERIALS TAB
+   ============================================================ */
+async function loadMaterials() {
+  const course = document.getElementById('mat-filter-course').value;
+  const { data, error } = await supabase.from('course_materials').select('*').eq('course', course).order('created_at', { ascending: false });
+  const el = document.getElementById('mat-list');
+  if (error) { el.innerHTML = `<div class="empty-state">${error.message}</div>`; return; }
+  if (!data.length) { el.innerHTML = `<div class="empty-state">No materials for this programme yet.</div>`; return; }
+  el.innerHTML = data.map(m => `
+    <div class="mat-row">
+      <a href="${m.url}" target="_blank" rel="noopener">${{ pdf: '📄', image: '🖼️', video: '🎬', link: '🔗' }[m.type] || '📎'} ${escapeHtml(m.title)}</a>
+      <button class="btn-sm btn-reject" data-action="delete-material" data-id="${m.id}">Delete</button>
+    </div>`).join('');
+  document.querySelectorAll('[data-action="delete-material"]').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      if (!confirm('Delete this material?')) return;
+      const { error } = await supabase.from('course_materials').delete().eq('id', btn.dataset.id);
+      if (error) { alert(error.message); return; }
+      loadMaterials();
+    });
+  });
+}
+
+document.getElementById('mat-filter-course').addEventListener('change', loadMaterials);
+
+document.getElementById('material-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const course = document.getElementById('mat-course').value;
+  const type = document.getElementById('mat-type').value;
+  const title = document.getElementById('mat-title').value.trim();
+  const file = document.getElementById('mat-file').files[0];
+  const url = document.getElementById('mat-url').value.trim();
+  const errEl = document.getElementById('mat-error');
+  const okEl = document.getElementById('mat-success');
+  errEl.classList.remove('show'); okEl.classList.remove('show');
+
+  if (!file && !url) {
+    errEl.textContent = 'Upload a file or paste a link.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  const submitBtn = document.getElementById('mat-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Adding…';
+
+  let finalUrl = url;
+  if (file) {
+    const path = `${course}/${Date.now()}-${file.name}`;
+    const { error: upErr } = await supabase.storage.from('course-materials').upload(path, file);
+    if (upErr) {
+      errEl.textContent = 'Upload failed: ' + upErr.message;
+      errEl.classList.add('show');
+      submitBtn.disabled = false; submitBtn.textContent = 'Add material';
+      return;
+    }
+    finalUrl = supabase.storage.from('course-materials').getPublicUrl(path).data.publicUrl;
+  }
+
+  const { error } = await supabase.from('course_materials').insert({ course, type, title, url: finalUrl });
+  submitBtn.disabled = false; submitBtn.textContent = 'Add material';
+  if (error) {
+    errEl.textContent = error.message;
+    errEl.classList.add('show');
+    return;
+  }
+  okEl.textContent = 'Material added.';
+  okEl.classList.add('show');
+  e.target.reset();
+  if (document.getElementById('mat-filter-course').value === course) loadMaterials();
+});
+
+/* ============================================================
+   SETTINGS TAB
+   ============================================================ */
+async function loadSettings() {
+  const { data } = await supabase.from('app_settings').select('key,value');
+  const map = {};
+  (data || []).forEach(s => map[s.key] = s.value);
+  document.getElementById('set-whatsapp-number').value = map.whatsapp_number || CONFIG.WHATSAPP_NUMBER;
+  document.getElementById('set-bank-name-holder').value = map.bank_account_name || CONFIG.BANK.accountName;
+  document.getElementById('set-bank-account').value = map.bank_account_number || CONFIG.BANK.accountNumber;
+  document.getElementById('set-bank-name').value = map.bank_name || CONFIG.BANK.bankName;
+
+  const { data: courses } = await supabase.from('courses').select('slug,whatsapp_group');
+  const groupMap = {};
+  (courses || []).forEach(c => groupMap[c.slug] = c.whatsapp_group);
+  document.getElementById('course-group-rows').innerHTML = COURSE_IDS.map(id => `
+    <div class="settings-row">
+      <label>${CONFIG.COURSES[id].name}</label>
+      <input data-course="${id}" class="course-group-input" value="${groupMap[id] || CONFIG.COURSES[id].whatsappGroup}">
+    </div>`).join('');
+}
+
+async function upsertSetting(key, value) {
+  return supabase.from('app_settings').upsert({ key, value });
+}
+
+document.getElementById('save-whatsapp').addEventListener('click', async () => {
+  const value = document.getElementById('set-whatsapp-number').value.trim();
+  const { error } = await upsertSetting('whatsapp_number', value);
+  flashSuccess('whatsapp-success', error);
+});
+
+document.getElementById('save-bank').addEventListener('click', async () => {
+  const a = upsertSetting('bank_account_name', document.getElementById('set-bank-name-holder').value.trim());
+  const b = upsertSetting('bank_account_number', document.getElementById('set-bank-account').value.trim());
+  const c = upsertSetting('bank_name', document.getElementById('set-bank-name').value.trim());
+  const results = await Promise.all([a, b, c]);
+  const error = results.find(r => r.error)?.error;
+  flashSuccess('bank-success', error);
+});
+
+document.getElementById('save-groups').addEventListener('click', async () => {
+  const inputs = document.querySelectorAll('.course-group-input');
+  const updates = Array.from(inputs).map(inp => supabase.from('courses').update({ whatsapp_group: inp.value.trim() }).eq('slug', inp.dataset.course));
+  const results = await Promise.all(updates);
+  const error = results.find(r => r.error)?.error;
+  flashSuccess('groups-success', error);
+});
+
+function flashSuccess(elId, error) {
+  const el = document.getElementById(elId);
+  if (error) { alert(error.message); return; }
+  el.textContent = 'Saved.';
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+/* ---------------- init after login ---------------- */
+function initDashboardData() {
+  populateCourseSelect(document.getElementById('filter-course'), true);
+  populateCourseSelect(document.getElementById('mat-course'), false);
+  populateCourseSelect(document.getElementById('mat-filter-course'), false);
+  loadRegistrations();
+  loadStatCards();
+  loadMaterials();
+  loadSettings();
+}
+
+checkSession();
+</script>
+</body>
+</html>
