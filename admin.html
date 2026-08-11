@@ -125,9 +125,9 @@
 <div id="login-screen">
   <div class="login-card">
     <div class="login-logo"><span class="logo-mark">N</span>Nesis Admin</div>
-    <p class="sub">Sign in with the admin account created in Supabase Auth.</p>
+    <p class="sub">Sign in with your Nesis admin username and password.</p>
     <form id="login-form">
-      <div class="field"><label>Email</label><input required type="email" id="login-email" autocomplete="username"></div>
+      <div class="field"><label>Username</label><input required type="text" id="login-username" autocomplete="username" placeholder="Nesis"></div>
       <div class="field"><label>Password</label><input required type="password" id="login-password" autocomplete="current-password"></div>
       <div class="form-error" id="login-error"></div>
       <button type="submit" class="btn btn-violet btn-block" id="login-btn">Sign in</button>
@@ -213,6 +213,19 @@
     <!-- SETTINGS -->
     <section class="tab-panel" id="panel-settings">
       <div class="panel-card">
+        <h3>Account</h3>
+        <p class="muted" id="account-last-changed" style="margin-bottom:14px;">Loading…</p>
+        <form id="change-password-form">
+          <div class="grid-2">
+            <div class="field"><label>New password</label><input required type="password" id="new-password" minlength="8" autocomplete="new-password"></div>
+            <div class="field"><label>Confirm new password</label><input required type="password" id="confirm-password" minlength="8" autocomplete="new-password"></div>
+          </div>
+          <div class="form-error" id="password-error"></div>
+          <div class="form-success" id="password-success"></div>
+          <button type="submit" class="btn btn-violet" id="change-password-btn" style="margin-top:16px;">Change password</button>
+        </form>
+      </div>
+      <div class="panel-card">
         <h3>WhatsApp</h3>
         <div class="settings-row"><label>Business number</label><input id="set-whatsapp-number" placeholder="2340000000000"></div>
         <button class="btn btn-violet" id="save-whatsapp" style="margin-top:16px;">Save</button>
@@ -258,6 +271,19 @@ if (!BACKEND_READY) {
 const supabase = BACKEND_READY ? createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY) : null;
 const COURSE_IDS = Object.keys(CONFIG.COURSES);
 
+/* Supabase Auth accounts are always email-based under the hood. To offer
+   a plain "username" login (e.g. "Nesis"), each admin username maps to a
+   fixed, non-mailbox internal address like nesis@nesis.local — see the
+   "CREATING AN ADMIN USER" note in supabase-setup.sql. */
+const AUTH_EMAIL_DOMAIN = 'nesis.local';
+const usernameToEmail = (u) => `${u.trim().toLowerCase()}@${AUTH_EMAIL_DOMAIN}`;
+const emailToUsername = (e) => {
+  const local = (e || '').split('@')[0] || '';
+  return local.charAt(0).toUpperCase() + local.slice(1);
+};
+
+const PASSWORD_MIN_INTERVAL_DAYS = 30;
+
 /* ---------------- auth ---------------- */
 const loginScreen = document.getElementById('login-screen');
 const dashboard = document.getElementById('dashboard');
@@ -271,19 +297,19 @@ async function checkSession() {
 function showDashboard(session) {
   loginScreen.style.display = 'none';
   dashboard.classList.add('open');
-  document.getElementById('admin-email').textContent = session.user.email;
+  document.getElementById('admin-email').textContent = emailToUsername(session.user.email);
   initDashboardData();
 }
 
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const email = document.getElementById('login-email').value.trim();
+  const username = document.getElementById('login-username').value.trim();
   const password = document.getElementById('login-password').value;
   const errEl = document.getElementById('login-error');
   errEl.classList.remove('show');
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await supabase.auth.signInWithPassword({ email: usernameToEmail(username), password });
   if (error) {
-    errEl.textContent = error.message;
+    errEl.textContent = 'Incorrect username or password.';
     errEl.classList.add('show');
     return;
   }
@@ -495,6 +521,73 @@ document.getElementById('material-form').addEventListener('submit', async (e) =>
 });
 
 /* ============================================================
+   ACCOUNT (password change, once every 30 days)
+   ============================================================ */
+async function loadAccountInfo() {
+  const { data: { user } } = await supabase.auth.getUser();
+  const last = user?.user_metadata?.last_password_change;
+  const infoEl = document.getElementById('account-last-changed');
+  const btn = document.getElementById('change-password-btn');
+  if (last) {
+    const lastDate = new Date(last);
+    const nextEligible = new Date(lastDate.getTime() + PASSWORD_MIN_INTERVAL_DAYS * 86400000);
+    const eligible = new Date() >= nextEligible;
+    infoEl.textContent = eligible
+      ? `Password last changed ${lastDate.toLocaleDateString()}. You're eligible to change it again.`
+      : `Password last changed ${lastDate.toLocaleDateString()}. You can change it again on ${nextEligible.toLocaleDateString()}.`;
+    btn.disabled = !eligible;
+  } else {
+    infoEl.textContent = 'Password has not been changed since setup. You can change it once now — after that, once every 30 days.';
+    btn.disabled = false;
+  }
+}
+
+document.getElementById('change-password-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const pw1 = document.getElementById('new-password').value;
+  const pw2 = document.getElementById('confirm-password').value;
+  const errEl = document.getElementById('password-error');
+  const okEl = document.getElementById('password-success');
+  errEl.classList.remove('show'); okEl.classList.remove('show');
+
+  if (pw1.length < 8) {
+    errEl.textContent = 'Password must be at least 8 characters.';
+    errEl.classList.add('show');
+    return;
+  }
+  if (pw1 !== pw2) {
+    errEl.textContent = 'Passwords do not match.';
+    errEl.classList.add('show');
+    return;
+  }
+
+  const { data: { user } } = await supabase.auth.getUser();
+  const last = user?.user_metadata?.last_password_change;
+  if (last) {
+    const nextEligible = new Date(new Date(last).getTime() + PASSWORD_MIN_INTERVAL_DAYS * 86400000);
+    if (new Date() < nextEligible) {
+      errEl.textContent = `You can next change your password on ${nextEligible.toLocaleDateString()}.`;
+      errEl.classList.add('show');
+      return;
+    }
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: pw1,
+    data: { last_password_change: new Date().toISOString() },
+  });
+  if (error) {
+    errEl.textContent = error.message;
+    errEl.classList.add('show');
+    return;
+  }
+  okEl.textContent = 'Password changed. Use it next time you sign in.';
+  okEl.classList.add('show');
+  e.target.reset();
+  loadAccountInfo();
+});
+
+/* ============================================================
    SETTINGS TAB
    ============================================================ */
 async function loadSettings() {
@@ -560,6 +653,7 @@ function initDashboardData() {
   loadStatCards();
   loadMaterials();
   loadSettings();
+  loadAccountInfo();
 }
 
 checkSession();
