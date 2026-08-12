@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nesis — Three weeks. One new skill. | Holiday Skills Programme for Ages 10–17</title>
+<title>Nesis: Three weeks. One new skill. | Holiday Skills Programme for Ages 10–17</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#F6F5FB;
@@ -30,7 +30,7 @@
     --shadow:0 20px 50px -20px rgba(19,18,42,0.25);
     --display:'Space Grotesk', sans-serif;
     --body:'Inter', sans-serif;
-    --mono:'JetBrains Mono', monospace;
+    --mono:'Inter', sans-serif;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
@@ -242,8 +242,6 @@
   .step-label{font-family:var(--mono);font-size:12.5px;font-weight:600;letter-spacing:.08em;color:var(--violet-deep);margin-bottom:12px;}
   .step h3{font-size:18px;margin-top:6px;}
   .step p{margin-top:8px;font-size:14px;color:var(--ink-soft);}
-  .step-connector{position:absolute;top:26px;left:110%;width:60%;height:1px;background:repeating-linear-gradient(90deg,var(--violet) 0 6px, transparent 6px 12px);}
-  .step:last-child .step-connector{display:none;}
 
   /* ---- holiday five ---- */
   .prog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
@@ -258,7 +256,6 @@
     width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;
     color:#fff;
   }
-  .prog-index{font-family:var(--mono);color:var(--ink-faint);font-size:13px;}
   .prog-card h3{font-size:20px;margin-top:2px;}
   .prog-focus{font-size:14px;color:var(--ink-soft);}
   .prog-outcome{
@@ -275,6 +272,7 @@
   .seat-tag.ok::before{background:var(--whatsapp);}
   .seat-tag.low::before{background:var(--amber);}
   .seat-tag.full::before{background:#E4574C;}
+  .seat-tag-empty{display:none;}
   .prog-register-btn{width:100%;justify-content:center;margin-top:auto;border:none;font-family:var(--body);cursor:pointer;}
   .prog-register-btn[disabled]{background:var(--line);color:var(--ink-faint);box-shadow:none;cursor:not-allowed;transform:none;}
   .prog-register-btn.state-pending{background:var(--amber);color:#3B2400;box-shadow:0 12px 28px -10px rgba(255,181,52,0.55);}
@@ -476,7 +474,6 @@
     .fc-bottom{left:12px;}
     .phone{margin:0 auto;}
     .steps{grid-template-columns:repeat(2,1fr);row-gap:36px;}
-    .step-connector{display:none;}
     .prog-grid{grid-template-columns:repeat(2,1fr);}
     .team-grid{grid-template-columns:repeat(2,1fr);}
     .structure-cols{grid-template-columns:1fr;}
@@ -535,7 +532,7 @@
         <div class="hero-copy">
           <span class="eyebrow" style="color:var(--violet-deep);">HOLIDAY SKILLS PROGRAMME · AGES 10–17</span>
           <h1>Three weeks to build something <em>real</em>.</h1>
-          <p class="lede">A structured, instructor-led holiday experience — not a folder of videos. Your child learns with a real instructor, practises daily, builds a project, and presents it. Then you get a certificate and a progress report.</p>
+          <p class="lede">A structured, instructor-led holiday experience, not a folder of videos. Your child learns with a real instructor, practises daily, builds a project, and presents it. Then you get a certificate and a progress report.</p>
           <div class="hero-ctas">
             <a href="#programmes" class="btn btn-violet">Register your child →</a>
             <a href="#" class="btn btn-whatsapp" id="hero-whatsapp">Chat on WhatsApp</a>
@@ -591,20 +588,20 @@
       <div class="section-head">
         <span class="eyebrow">WHY NESIS</span>
         <h2>You're not really shopping for an "AI course."</h2>
-        <p>You're shopping for what happens to your child during the holiday. Here's what we've heard parents actually say — and what Nesis does about it.</p>
+        <p>You're shopping for what happens to your child during the holiday. Here's what we've heard parents actually say, and what Nesis does about it.</p>
       </div>
       <div class="worry-grid">
         <div class="worry-card">
           <p class="worry-quote">My child is at home for the holiday. I don't want it wasted.</p>
-          <p class="worry-answer"><b>Nesis answer —</b> a structured three weeks with live classes and daily direction, not open-ended screen time.</p>
+          <p class="worry-answer"><b>Nesis answer:</b> a structured three weeks with live classes and daily direction, not open-ended screen time.</p>
         </div>
         <div class="worry-card">
           <p class="worry-quote">I want my child to learn something actually useful.</p>
-          <p class="worry-answer"><b>Nesis answer —</b> every programme ends in a real project your child builds and presents, not just a video watched.</p>
+          <p class="worry-answer"><b>Nesis answer:</b> every programme ends in a real project your child builds and presents, not just a video watched.</p>
         </div>
         <div class="worry-card">
           <p class="worry-quote">I want proof my child was engaged, not just enrolled.</p>
-          <p class="worry-answer"><b>Nesis answer —</b> a parent progress report with attendance, activities and a final project summary.</p>
+          <p class="worry-answer"><b>Nesis answer:</b> a parent progress report with attendance, activities and a final project summary.</p>
         </div>
       </div>
     </div>
@@ -622,20 +619,17 @@
         <div class="step">
           <div class="step-label">01 / LEARN</div>
           <h3>Real instructor, live class</h3>
-          <p>Not a pre-recorded video on autoplay — a real instructor teaching in real time.</p>
-          <div class="step-connector"></div>
+          <p>Not a pre-recorded video on autoplay. A real instructor teaching in real time.</p>
         </div>
         <div class="step">
           <div class="step-label">02 / PRACTISE</div>
           <h3>Daily hands-on practice</h3>
           <p>Activities and a mini challenge that turn theory into an actual skill.</p>
-          <div class="step-connector"></div>
         </div>
         <div class="step">
           <div class="step-label">03 / CREATE</div>
           <h3>One real project</h3>
           <p>Week two is spent building one thing from idea to finished version.</p>
-          <div class="step-connector"></div>
         </div>
         <div class="step">
           <div class="step-label">04 / PRESENT</div>
@@ -652,79 +646,74 @@
       <div class="section-head center" style="margin-left:auto;margin-right:auto;">
         <span class="eyebrow">THE HOLIDAY FIVE</span>
         <h2>Five programmes. Four seats each.</h2>
-        <p>This first cohort is capped at 20 students — 4 per programme — so every instructor gives each child real attention. NGN 50,000 covers any one programme, in full.</p>
+        <p>This first cohort is capped at 20 students, 4 per programme, so every instructor gives each child real attention. NGN 50,000 covers any one programme, in full.</p>
       </div>
       <div class="prog-grid">
 
         <div class="prog-card" data-course-card="ai-explorer">
           <div class="prog-top">
             <div class="prog-icon c1">🤖</div>
-            <span class="prog-index">01</span>
           </div>
           <h3>AI Explorer</h3>
           <p class="prog-focus">AI literacy, prompting, research, creativity and responsible use.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child understands what AI actually is, and uses it intelligently for learning, research and problem-solving.</div>
           <span class="seat-tag" data-seat-tag="ai-explorer">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="ai-explorer" data-course-name="AI Explorer">Register — NGN 50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="ai-explorer" data-course-name="AI Explorer">Register: NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="young-speaker">
           <div class="prog-top">
             <div class="prog-icon c2">🎤</div>
-            <span class="prog-index">02</span>
           </div>
           <h3>Young Speaker</h3>
           <p class="prog-focus">Public speaking, confidence, storytelling and presentation.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child becomes noticeably more comfortable expressing ideas and presenting in front of people.</div>
           <span class="seat-tag" data-seat-tag="young-speaker">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="young-speaker" data-course-name="Young Speaker">Register — NGN 50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="young-speaker" data-course-name="Young Speaker">Register: NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="code-create">
           <div class="prog-top">
             <div class="prog-icon c3">💻</div>
-            <span class="prog-index">03</span>
           </div>
           <h3>Code &amp; Create</h3>
           <p class="prog-focus">Coding fundamentals, game creation and digital building.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child learns core coding concepts by actually building something, not just reading theory.</div>
           <span class="seat-tag" data-seat-tag="code-create">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="code-create" data-course-name="Code &amp; Create">Register — NGN 50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="code-create" data-course-name="Code &amp; Create">Register: NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="digital-creator">
           <div class="prog-top">
             <div class="prog-icon c4">🎬</div>
-            <span class="prog-index">04</span>
           </div>
           <h3>Digital Creator</h3>
           <p class="prog-focus">Canva, video editing, digital creativity and content creation.</p>
-          <div class="prog-outcome"><b>Outcome</b>Your child leaves with real, shareable creative work — not just knowledge of a tool.</div>
+          <div class="prog-outcome"><b>Outcome</b>Your child leaves with real, shareable creative work, not just knowledge of a tool.</div>
           <span class="seat-tag" data-seat-tag="digital-creator">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="digital-creator" data-course-name="Digital Creator">Register — NGN 50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="digital-creator" data-course-name="Digital Creator">Register: NGN 50,000</button>
         </div>
 
         <div class="prog-card" data-course-card="young-entrepreneur">
           <div class="prog-top">
             <div class="prog-icon c5">📈</div>
-            <span class="prog-index">05</span>
           </div>
           <h3>Young Entrepreneur</h3>
           <p class="prog-focus">Business thinking, money basics, problem-solving and pitching.</p>
           <div class="prog-outcome"><b>Outcome</b>Your child develops a simple business idea and learns how to explain and pitch it.</div>
           <span class="seat-tag" data-seat-tag="young-entrepreneur">Checking seats…</span>
-          <button class="btn btn-violet prog-register-btn" data-course="young-entrepreneur" data-course-name="Young Entrepreneur">Register — NGN 50,000</button>
+          <button class="btn btn-violet prog-register-btn" data-course="young-entrepreneur" data-course-name="Young Entrepreneur">Register: NGN 50,000</button>
         </div>
 
         <div class="prog-card" style="background:var(--navy);border:none;justify-content:center;align-items:flex-start;">
           <div class="prog-icon" style="background:rgba(255,255,255,0.08);">✦</div>
           <h3 style="color:#fff;">Not sure which one fits?</h3>
-          <p class="prog-focus" style="color:#B6B4D6;">Tell us a little about your child on WhatsApp — we'll help you pick the right skill for them.</p>
+          <p class="prog-focus" style="color:#B6B4D6;">Tell us a little about your child on WhatsApp, and we'll help you pick the right skill for them.</p>
           <a class="btn btn-whatsapp" href="#" id="not-sure-whatsapp" style="margin-top:6px;">Ask on WhatsApp</a>
         </div>
 
       </div>
-      <p class="five-note">More programmes are added after we learn from this first cohort — not before.</p>
+      <p class="five-note">More programmes are added after we learn from this first cohort, not before.</p>
     </div>
   </section>
 
@@ -734,19 +723,19 @@
       <div class="section-head">
         <span class="eyebrow">PROGRAMME STRUCTURE · AUG 24 – SEP 12</span>
         <h2>Three weeks. One finished project.</h2>
-        <p>Every programme in the Holiday Five follows the same rhythm — a week to learn the fundamentals, a week to build, a week to finish and present. All five programmes run at the same time, on staggered schedules so no child (or instructor) is overloaded.</p>
+        <p>Every programme in the Holiday Five follows the same rhythm: a week to learn the fundamentals, a week to build, a week to finish and present. All five programmes run at the same time, on staggered schedules so no child (or instructor) is overloaded.</p>
       </div>
       <div class="structure-cols cols-3">
         <div class="week-card">
-          <div class="week-head"><h3>Week 1 — Learn</h3><span>AUG 24–29</span></div>
-          <div class="day-row"><div class="day-num">DAY 1</div><p>Introduction — meet the instructor and the group.</p></div>
+          <div class="week-head"><h3>Week 1: Learn</h3><span>AUG 24–29</span></div>
+          <div class="day-row"><div class="day-num">DAY 1</div><p>Introduction: meet the instructor and the group.</p></div>
           <div class="day-row"><div class="day-num">DAY 2</div><p>Core concepts for the skill.</p></div>
           <div class="day-row"><div class="day-num">DAY 3</div><p>First practical lesson.</p></div>
           <div class="day-row"><div class="day-num">DAY 4</div><p>Guided practice.</p></div>
           <div class="day-row"><div class="day-num">DAY 5</div><p>Mini challenge to apply the week.</p></div>
         </div>
         <div class="week-card">
-          <div class="week-head"><h3>Week 2 — Build</h3><span>AUG 31–SEP 5</span></div>
+          <div class="week-head"><h3>Week 2: Build</h3><span>AUG 31–SEP 5</span></div>
           <div class="day-row"><div class="day-num">DAY 6</div><p>Final project introduced.</p></div>
           <div class="day-row"><div class="day-num">DAY 7</div><p>Project development.</p></div>
           <div class="day-row"><div class="day-num">DAY 8</div><p>Project development continues.</p></div>
@@ -754,7 +743,7 @@
           <div class="day-row"><div class="day-num">DAY 10</div><p>Mid-project check-in with the group.</p></div>
         </div>
         <div class="week-card">
-          <div class="week-head"><h3>Week 3 — Present</h3><span>SEP 7–12</span></div>
+          <div class="week-head"><h3>Week 3: Present</h3><span>SEP 7–12</span></div>
           <div class="day-row"><div class="day-num">DAY 11</div><p>Refine and polish the project.</p></div>
           <div class="day-row"><div class="day-num">DAY 12</div><p>Finalise the project.</p></div>
           <div class="day-row"><div class="day-num">DAY 13</div><p>Rehearse the presentation.</p></div>
@@ -763,7 +752,7 @@
           <div class="demo-day"><span>🎉 Demo Day</span><span>Every child presents</span></div>
         </div>
       </div>
-      <p class="five-note">Registration and onboarding close <b style="color:var(--ink);">22 August</b> — the deadline is fixed so every instructor can plan classes around a confirmed roster.</p>
+      <p class="five-note">Registration and onboarding close <b style="color:var(--ink);">22 August</b>. That deadline is fixed so every instructor can plan classes around a confirmed roster.</p>
     </div>
   </section>
 
@@ -788,8 +777,8 @@
         </div>
         <div class="report-feature">
           <span class="eyebrow" style="color:var(--violet-deep);">FOR PARENTS</span>
-          <h2 style="font-size:32px;font-weight:600;margin-top:10px;">Proof your child actually showed up — and grew.</h2>
-          <p style="color:var(--ink-soft);margin-top:12px;">Every child leaves with a certificate, and every parent gets a short, honest report — not just a "job well done" email.</p>
+          <h2 style="font-size:32px;font-weight:600;margin-top:10px;">Proof your child actually showed up, and grew.</h2>
+          <p style="color:var(--ink-soft);margin-top:12px;">Every child leaves with a certificate, and every parent gets a short, honest report, not just a "job well done" email.</p>
           <div style="margin-top:20px;" class="report-feature">
             <div class="rf-item">
               <div class="rf-ico">✓</div>
@@ -801,7 +790,7 @@
             </div>
             <div class="rf-item">
               <div class="rf-ico">↑</div>
-              <div><h4>One area to grow</h4><p>A specific, useful note — not a generic compliment.</p></div>
+              <div><h4>One area to grow</h4><p>A specific, useful note, not a generic compliment.</p></div>
             </div>
           </div>
         </div>
@@ -821,22 +810,22 @@
         <div class="fit-card">
           <div class="fit-emoji">🧠</div>
           <h4>The curious builder</h4>
-          <p>Always tinkering, always asking "how does this work?" — thrives in Code &amp; Create.</p>
+          <p>Always tinkering, always asking "how does this work?" Thrives in Code &amp; Create.</p>
         </div>
         <div class="fit-card">
           <div class="fit-emoji">🙊</div>
           <h4>The quiet one with a lot to say</h4>
-          <p>Full of ideas, short on confidence to share them — Young Speaker builds that muscle.</p>
+          <p>Full of ideas, short on confidence to share them. Young Speaker builds that muscle.</p>
         </div>
         <div class="fit-card">
           <div class="fit-emoji">📱</div>
           <h4>The screen-time kid</h4>
-          <p>Already glued to a phone — Digital Creator or AI Explorer turns that time into a skill.</p>
+          <p>Already glued to a phone. Digital Creator or AI Explorer turns that time into a skill.</p>
         </div>
         <div class="fit-card">
           <div class="fit-emoji">💡</div>
           <h4>The future founder</h4>
-          <p>Always has a "business idea" — Young Entrepreneur gives it real shape.</p>
+          <p>Always has a "business idea", and Young Entrepreneur gives it real shape.</p>
         </div>
       </div>
     </div>
@@ -852,11 +841,11 @@
       <div class="faq-wrap">
         <details open>
           <summary>What exactly is Nesis?</summary>
-          <p>A three-week, instructor-led holiday programme (Aug 24 – Sep 12) for young people aged 10–17. Students join live classes, complete practical activities, work on a final project, and receive a certificate plus a parent progress report — not a bundle of pre-recorded videos.</p>
+          <p>A three-week, instructor-led holiday programme (Aug 24 – Sep 12) for young people aged 10–17. Students join live classes, complete practical activities, work on a final project, and receive a certificate plus a parent progress report, not a bundle of pre-recorded videos.</p>
         </details>
         <details>
           <summary>How is this different from free content on YouTube?</summary>
-          <p>Structure, instruction and accountability. A real instructor teaches live, your child interacts with other students, and every programme ends in a project they build and present — with someone checking in on whether they actually did it.</p>
+          <p>Structure, instruction and accountability. A real instructor teaches live, your child interacts with other students, and every programme ends in a project they build and present, with someone checking in on whether they actually did it.</p>
         </details>
         <details>
           <summary>Do I need to install anything?</summary>
@@ -868,15 +857,15 @@
         </details>
         <details>
           <summary>How do I register and pay?</summary>
-          <p>Pick a programme and click Register. Fill in your and your child's details, and you'll be shown our account details to pay the NGN 50,000 fee by direct bank transfer — there's no card checkout. After paying, upload your proof of payment on the same page; that step is compulsory. Once we verify it (usually within 24 hours), your Register button turns into a Join Class button linking to that programme's WhatsApp group.</p>
+          <p>Pick a programme and click Register. Fill in your and your child's details, and you'll be shown our account details to pay the NGN 50,000 fee by direct bank transfer. There's no card checkout. After paying, upload your proof of payment on the same page; that step is compulsory. Once we verify it (usually within 24 hours), your Register button turns into a Join Class button linking to that programme's WhatsApp group.</p>
         </details>
         <details>
           <summary>Is the fee the same for every programme?</summary>
-          <p>Yes — NGN 50,000 covers any one of the five programmes in full, including the certificate and parent progress report. Registration and onboarding close on 22 August.</p>
+          <p>Yes, NGN 50,000 covers any one of the five programmes in full, including the certificate and parent progress report. Registration and onboarding close on 22 August.</p>
         </details>
         <details>
           <summary>What if my proof of payment hasn't been verified yet?</summary>
-          <p>Your Register button will show as pending on this page while we check it — you don't need to do anything else. If there's an issue with the proof you uploaded, we'll ask you to re-upload it, and you can also message us on WhatsApp with your reference code if you'd like an update sooner.</p>
+          <p>Your Register button will show as pending on this page while we check it. You don't need to do anything else. If there's an issue with the proof you uploaded, we'll ask you to re-upload it, and you can also message us on WhatsApp with your reference code if you'd like an update sooner.</p>
         </details>
       </div>
     </div>
@@ -888,7 +877,7 @@
       <div class="final-cta">
         <span class="eyebrow" style="color:var(--amber);">READY WHEN YOU ARE</span>
         <h2>Three weeks. One skill your child will actually use.</h2>
-        <p>Pick a programme and register directly on this page — or message us on WhatsApp first if you'd like help choosing.</p>
+        <p>Pick a programme and register directly on this page, or message us on WhatsApp first if you'd like help choosing.</p>
         <div class="hero-ctas">
           <a href="#programmes" class="btn btn-violet">Register your child →</a>
           <a href="#" class="btn btn-ghost-dark" id="final-cta-whatsapp">Chat on WhatsApp</a>
@@ -903,7 +892,7 @@
     <div class="foot-grid">
       <div>
         <a class="foot-logo" href="#top"><span class="logo-mark">N</span>Nesis</a>
-        <p>A structured three-week holiday learning experience for ages 10–17. Learn, practise, create and present — with a certificate and a progress report to show for it.</p>
+        <p>A structured three-week holiday learning experience for ages 10–17. Learn, practise, create and present, with a certificate and a progress report to show for it.</p>
       </div>
       <div class="foot-col">
         <h5>Programmes</h5>
@@ -960,7 +949,7 @@ let supabase = null;
 if (BACKEND_READY) {
   supabase = createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
 } else {
-  console.warn('[Nesis] Supabase is not configured yet — fill in config.js. Running in local demo mode: registrations only persist in this browser.');
+  console.warn('[Nesis] Supabase is not configured yet. Fill in config.js. Running in local demo mode: registrations only persist in this browser.');
 }
 
 /* Pull the live WhatsApp number, bank details and per-course group links
@@ -1041,25 +1030,25 @@ async function refreshCardsAndCohort() {
 
     const localReg = localRegs[courseId];
 
-    if (demo && !localReg) {
-      seatTag.textContent = `${CONFIG.CAPACITY_PER_COURSE} seats · connect Supabase to show live count`;
-      seatTag.className = 'seat-tag';
-    } else if (!localReg) {
-      seatTag.textContent = remaining > 0
-        ? `${remaining} / ${CONFIG.CAPACITY_PER_COURSE} seats left`
-        : 'Fully booked';
-      seatTag.className = 'seat-tag ' + (remaining === 0 ? 'full' : remaining === 1 ? 'low' : 'ok');
+    if (!localReg) {
+      if (remaining <= 0) {
+        seatTag.textContent = 'Fully booked';
+        seatTag.className = 'seat-tag full';
+      } else {
+        seatTag.textContent = '';
+        seatTag.className = 'seat-tag seat-tag-empty';
+      }
     }
 
     if (localReg) {
+      btn.style.display = '';
       applyCardState(courseId, localReg);
     } else if (remaining <= 0) {
-      btn.disabled = true;
-      btn.textContent = 'Fully booked';
-      btn.classList.add('state-full');
+      btn.style.display = 'none';
     } else {
+      btn.style.display = '';
       btn.disabled = false;
-      btn.textContent = `Register — ${CONFIG.FEE_DISPLAY}`;
+      btn.textContent = `Register: ${CONFIG.FEE_DISPLAY}`;
       btn.className = 'btn btn-violet prog-register-btn';
     }
   });
@@ -1067,7 +1056,7 @@ async function refreshCardsAndCohort() {
   const cohortCount = document.getElementById('cohort-count');
   const cohortBar = document.getElementById('cohort-bar-fill');
   const heroSeats = document.getElementById('hero-seats-left');
-  if (cohortCount) cohortCount.textContent = demo ? `— / ${CONFIG.TOTAL_SEATS} reserved` : `${total} / ${CONFIG.TOTAL_SEATS} reserved`;
+  if (cohortCount) cohortCount.textContent = demo ? `0 / ${CONFIG.TOTAL_SEATS} reserved` : `${total} / ${CONFIG.TOTAL_SEATS} reserved`;
   if (cohortBar) cohortBar.style.width = demo ? '0%' : `${Math.min(100, (total / CONFIG.TOTAL_SEATS) * 100)}%`;
   if (heroSeats) heroSeats.textContent = demo ? CONFIG.TOTAL_SEATS : Math.max(0, CONFIG.TOTAL_SEATS - total);
 }
@@ -1181,7 +1170,7 @@ function renderDetailsStep(courseId) {
       });
       if (error) {
         errEl.textContent = error.message.includes('capacity_reached')
-          ? 'This programme just filled up — please pick another.'
+          ? 'This programme just filled up. Please pick another.'
           : `Something went wrong saving your registration: ${error.message}`;
         errEl.classList.add('show');
         console.error(error);
@@ -1200,7 +1189,7 @@ function renderPaymentStep(reg) {
   openModal(`
     <span class="modal-eyebrow">STEP 2 OF 2 · PAY &amp; UPLOAD PROOF</span>
     <h3>Pay ${CONFIG.FEE_DISPLAY} by bank transfer</h3>
-    <p class="modal-sub">Transfer to the account below, then upload your proof of payment — this step is required before your seat is confirmed.</p>
+    <p class="modal-sub">Transfer to the account below, then upload your proof of payment. This step is required before your seat is confirmed.</p>
     <div class="ref-pill">🔖 Reference: ${reg.reference}</div>
     <div class="pay-detail-card">
       <div class="pay-row"><span>Account name</span><b>${CONFIG.BANK.accountName}</b></div>
@@ -1217,8 +1206,8 @@ function renderPaymentStep(reg) {
     <div class="modal-actions">
       <button type="button" class="btn btn-violet" id="submit-pop" disabled>Submit proof of payment</button>
     </div>
-    ${!BACKEND_READY ? '<div class="demo-flag">⚠ Demo mode: no file is actually uploaded anywhere yet — connect Supabase Storage to make this real.</div>' : ''}
-    <p class="modal-note">We usually verify payments within 24 hours. You can close this and come back anytime — your Register button on the programme card will show your status.</p>
+    ${!BACKEND_READY ? '<div class="demo-flag">⚠ Demo mode: no file is actually uploaded anywhere yet. Connect Supabase Storage to make this real.</div>' : ''}
+    <p class="modal-note">We usually verify payments within 24 hours. You can close this and come back anytime. Your Register button on the programme card will show your status.</p>
   `);
 
   document.querySelectorAll('.copy-btn').forEach(b => b.addEventListener('click', () => {
@@ -1249,7 +1238,7 @@ function renderPaymentStep(reg) {
       const path = `${reg.course}/${reg.reference}-${Date.now()}-${file.name}`;
       const { error: upErr } = await supabase.storage.from('proof-of-payment').upload(path, file);
       if (upErr) {
-        errEl.textContent = 'Upload failed — please try again.';
+        errEl.textContent = 'Upload failed. Please try again.';
         errEl.classList.add('show');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit proof of payment';
@@ -1258,7 +1247,7 @@ function renderPaymentStep(reg) {
       }
       const { error: rpcErr } = await supabase.rpc('submit_proof_of_payment', { reg_id: reg.id, path });
       if (rpcErr) {
-        errEl.textContent = 'Could not save your proof of payment — please try again.';
+        errEl.textContent = 'Could not save your proof of payment. Please try again.';
         errEl.classList.add('show');
         submitBtn.disabled = false;
         submitBtn.textContent = 'Submit proof of payment';
@@ -1278,11 +1267,11 @@ function renderConfirmStep(reg) {
   const meta = CONFIG.COURSES[reg.course];
   openModal(`
     <span class="modal-eyebrow">SUBMITTED</span>
-    <h3>Thanks — we're verifying your payment</h3>
+    <h3>Thanks, we're verifying your payment</h3>
     <p class="modal-sub">${meta.name} · ${reg.childName || ''}</p>
     <div class="status-badge pending"><span class="dot"></span> Pending verification</div>
     <div class="ref-pill">🔖 Reference: ${reg.reference}</div>
-    <p class="modal-note">This usually takes up to 24 hours. Once verified, the Register button on this programme's card will turn into a Join Class button linking straight to the WhatsApp class group. Save your reference code — you can check your status anytime using "Check my status" in the menu.</p>
+    <p class="modal-note">This usually takes up to 24 hours. Once verified, the Register button on this programme's card will turn into a Join Class button linking straight to the WhatsApp class group. Save your reference code so you can check your status anytime using "Check my status" in the menu.</p>
     <div class="modal-actions">
       <button type="button" class="btn btn-violet" id="confirm-done">Done</button>
     </div>
@@ -1370,7 +1359,7 @@ async function renderMaterialsModal(courseId) {
     <h3>${meta.name}</h3>
     ${materials.length
       ? `<div class="materials-list">${materials.map(m => `<a class="material-row" href="${m.url}" target="_blank" rel="noopener"><span>${materialIcon(m.type)}</span><span>${m.title}</span></a>`).join('')}</div>`
-      : `<p class="modal-sub">No materials uploaded for this programme yet — check back soon.</p>`}
+      : `<p class="modal-sub">No materials uploaded for this programme yet. Check back soon.</p>`}
   `);
 }
 
