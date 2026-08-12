@@ -6,14 +6,14 @@
 <title>Nesis Admin</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#F6F5FB; --paper:#FFFFFF; --ink:#13122A; --ink-soft:#54536F; --ink-faint:#8B89A6;
     --navy:#100F26; --violet:#6C4CF1; --violet-deep:#4F35C4; --violet-tint:#EFE9FD;
     --amber:#FFB534; --whatsapp:#28D267; --whatsapp-deep:#1FA653; --red:#E4574C;
     --line:rgba(19,18,42,0.10); --radius:16px; --shadow:0 20px 50px -20px rgba(19,18,42,0.25);
-    --display:'Space Grotesk', sans-serif; --body:'Inter', sans-serif; --mono:'JetBrains Mono', monospace;
+    --display:'Space Grotesk', sans-serif; --body:'Inter', sans-serif; --mono:'Inter', sans-serif;
   }
   *{box-sizing:border-box;}
   body{margin:0;font-family:var(--body);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;}
@@ -264,7 +264,7 @@ const BACKEND_READY =
 
 if (!BACKEND_READY) {
   document.getElementById('login-demo-flag').innerHTML =
-    '<div class="demo-flag">⚠ Supabase isn\'t configured yet in config.js. The admin panel needs a live connection to work — fill in SUPABASE_URL and SUPABASE_ANON_KEY, then reload.</div>';
+    '<div class="demo-flag">⚠ Supabase isn\'t configured yet in config.js. The admin panel needs a live connection to work. Fill in SUPABASE_URL and SUPABASE_ANON_KEY, then reload.</div>';
   document.getElementById('login-btn').disabled = true;
 }
 
@@ -273,7 +273,7 @@ const COURSE_IDS = Object.keys(CONFIG.COURSES);
 
 /* Supabase Auth accounts are always email-based under the hood. To offer
    a plain "username" login (e.g. "Nesis"), each admin username maps to a
-   fixed, non-mailbox internal address like nesis@nesis.local — see the
+   fixed, non-mailbox internal address like nesis@nesis.local. See the
    "CREATING AN ADMIN USER" note in supabase-setup.sql. */
 const AUTH_EMAIL_DOMAIN = 'nesis.local';
 const usernameToEmail = (u) => `${u.trim().toLowerCase()}@${AUTH_EMAIL_DOMAIN}`;
@@ -309,7 +309,9 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
   errEl.classList.remove('show');
   const { data, error } = await supabase.auth.signInWithPassword({ email: usernameToEmail(username), password });
   if (error) {
-    errEl.textContent = 'Incorrect username or password.';
+    errEl.textContent = error.message === 'Invalid login credentials'
+      ? 'Incorrect username or password.'
+      : error.message; // e.g. "Email not confirmed", surfaced as-is to help debug setup
     errEl.classList.add('show');
     return;
   }
@@ -537,7 +539,7 @@ async function loadAccountInfo() {
       : `Password last changed ${lastDate.toLocaleDateString()}. You can change it again on ${nextEligible.toLocaleDateString()}.`;
     btn.disabled = !eligible;
   } else {
-    infoEl.textContent = 'Password has not been changed since setup. You can change it once now — after that, once every 30 days.';
+    infoEl.textContent = 'Password has not been changed since setup. You can change it once now, then once every 30 days after that.';
     btn.disabled = false;
   }
 }
