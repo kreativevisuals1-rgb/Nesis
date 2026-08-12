@@ -305,16 +305,6 @@
   .jstep.on{background:rgba(108,76,241,0.18);border-radius:14px;}
 
   /* ---- structure timeline ---- */
-  .structure-cols{display:grid;grid-template-columns:1fr 1fr;gap:36px;}
-  .structure-cols.cols-3{grid-template-columns:repeat(3,1fr);}
-  .week-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:30px;}
-  .week-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
-  .week-head span{font-family:var(--mono);font-size:12px;color:var(--ink-faint);}
-  .day-row{display:flex;gap:14px;padding:12px 0;border-top:1px solid var(--line);align-items:center;}
-  .day-row:first-of-type{border-top:none;}
-  .day-num{font-family:var(--display);font-weight:700;color:var(--violet);font-size:14px;width:52px;flex-shrink:0;}
-  .day-row p{font-size:14.5px;}
-  .demo-day{margin-top:20px;background:linear-gradient(120deg,var(--amber),#FF8A3D);color:#2B1500;padding:16px 18px;border-radius:14px;font-weight:600;font-size:14.5px;display:flex;justify-content:space-between;align-items:center;}
 
   /* ---- report mockup ---- */
   .report-section{display:grid;grid-template-columns:0.9fr 1.1fr;gap:56px;align-items:center;}
@@ -476,8 +466,6 @@
     .steps{grid-template-columns:repeat(2,1fr);row-gap:36px;}
     .prog-grid{grid-template-columns:repeat(2,1fr);}
     .team-grid{grid-template-columns:repeat(2,1fr);}
-    .structure-cols{grid-template-columns:1fr;}
-    .structure-cols.cols-3{grid-template-columns:1fr;}
     .report-section{grid-template-columns:1fr;}
     .fit-grid{grid-template-columns:repeat(2,1fr);}
     .cohort{grid-template-columns:1fr;}
@@ -644,9 +632,9 @@
   <section id="programmes">
     <div class="wrap">
       <div class="section-head center" style="margin-left:auto;margin-right:auto;">
-        <span class="eyebrow">THE HOLIDAY FIVE</span>
-        <h2>Five programmes. Four seats each.</h2>
-        <p>This first cohort is capped at 20 students, 4 per programme, so every instructor gives each child real attention. NGN 50,000 covers any one programme, in full.</p>
+        <span class="eyebrow">THE HOLIDAY FIVE · AUG 24 – SEP 12</span>
+        <h2>Five programmes. Three weeks. One finished project.</h2>
+        <p>This first cohort is capped at 20 students, 4 per programme, so every instructor gives each child real attention. Every programme follows the same rhythm over three weeks: a week to learn, a week to build, and a week to finish and present, all running at the same time on staggered schedules. NGN 50,000 covers any one programme, in full.</p>
       </div>
       <div class="prog-grid">
 
@@ -713,46 +701,7 @@
         </div>
 
       </div>
-      <p class="five-note">More programmes are added after we learn from this first cohort, not before.</p>
-    </div>
-  </section>
-
-  <!-- STRUCTURE -->
-  <section>
-    <div class="wrap">
-      <div class="section-head">
-        <span class="eyebrow">PROGRAMME STRUCTURE · AUG 24 – SEP 12</span>
-        <h2>Three weeks. One finished project.</h2>
-        <p>Every programme in the Holiday Five follows the same rhythm: a week to learn the fundamentals, a week to build, a week to finish and present. All five programmes run at the same time, on staggered schedules so no child (or instructor) is overloaded.</p>
-      </div>
-      <div class="structure-cols cols-3">
-        <div class="week-card">
-          <div class="week-head"><h3>Week 1: Learn</h3><span>AUG 24–29</span></div>
-          <div class="day-row"><div class="day-num">DAY 1</div><p>Introduction: meet the instructor and the group.</p></div>
-          <div class="day-row"><div class="day-num">DAY 2</div><p>Core concepts for the skill.</p></div>
-          <div class="day-row"><div class="day-num">DAY 3</div><p>First practical lesson.</p></div>
-          <div class="day-row"><div class="day-num">DAY 4</div><p>Guided practice.</p></div>
-          <div class="day-row"><div class="day-num">DAY 5</div><p>Mini challenge to apply the week.</p></div>
-        </div>
-        <div class="week-card">
-          <div class="week-head"><h3>Week 2: Build</h3><span>AUG 31–SEP 5</span></div>
-          <div class="day-row"><div class="day-num">DAY 6</div><p>Final project introduced.</p></div>
-          <div class="day-row"><div class="day-num">DAY 7</div><p>Project development.</p></div>
-          <div class="day-row"><div class="day-num">DAY 8</div><p>Project development continues.</p></div>
-          <div class="day-row"><div class="day-num">DAY 9</div><p>Guided troubleshooting &amp; feedback.</p></div>
-          <div class="day-row"><div class="day-num">DAY 10</div><p>Mid-project check-in with the group.</p></div>
-        </div>
-        <div class="week-card">
-          <div class="week-head"><h3>Week 3: Present</h3><span>SEP 7–12</span></div>
-          <div class="day-row"><div class="day-num">DAY 11</div><p>Refine and polish the project.</p></div>
-          <div class="day-row"><div class="day-num">DAY 12</div><p>Finalise the project.</p></div>
-          <div class="day-row"><div class="day-num">DAY 13</div><p>Rehearse the presentation.</p></div>
-          <div class="day-row"><div class="day-num">DAY 14</div><p>Final touches.</p></div>
-          <div class="day-row"><div class="day-num">DAY 15</div><p>Demo Day.</p></div>
-          <div class="demo-day"><span>🎉 Demo Day</span><span>Every child presents</span></div>
-        </div>
-      </div>
-      <p class="five-note">Registration and onboarding close <b style="color:var(--ink);">22 August</b>. That deadline is fixed so every instructor can plan classes around a confirmed roster.</p>
+      <p class="five-note">More programmes are added after we learn from this first cohort, not before. Registration and onboarding close <b style="color:var(--ink);">22 August</b>, so every instructor can plan classes around a confirmed roster.</p>
     </div>
   </section>
 
@@ -937,8 +886,33 @@
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 
 /* CONFIG now lives in config.js (shared with admin.html) so credentials
-   only need to be set in one place. */
-const CONFIG = window.NESIS_CONFIG;
+   only need to be set in one place. If config.js failed to load (wrong
+   path, not deployed, etc.), window.NESIS_CONFIG is undefined — fall back
+   to a safe default instead of crashing this whole script, which would
+   otherwise silently disable every button on the page. */
+const CONFIG = window.NESIS_CONFIG || {
+  SUPABASE_URL: 'YOUR_SUPABASE_URL',
+  SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY',
+  WHATSAPP_NUMBER: '2340000000000',
+  BANK: { accountName: 'Nesis', accountNumber: '0000000000', bankName: 'Your Bank Name Here' },
+  FEE: 50000, FEE_DISPLAY: 'NGN 50,000', CAPACITY_PER_COURSE: 4, TOTAL_SEATS: 20,
+  ONBOARDING_DEADLINE: '22 August',
+  COURSES: {
+    'ai-explorer':        { name: 'AI Explorer',        whatsappGroup: '#' },
+    'young-speaker':      { name: 'Young Speaker',       whatsappGroup: '#' },
+    'code-create':        { name: 'Code & Create',       whatsappGroup: '#' },
+    'digital-creator':    { name: 'Digital Creator',     whatsappGroup: '#' },
+    'young-entrepreneur': { name: 'Young Entrepreneur',  whatsappGroup: '#' },
+  },
+};
+
+if (!window.NESIS_CONFIG) {
+  console.error('[Nesis] config.js did not load — check that config.js sits in the same folder as index.html and is committed to the repo.');
+  const banner = document.createElement('div');
+  banner.textContent = '⚠ config.js failed to load, so registration is temporarily disabled. Check that config.js is in the same folder as this page.';
+  banner.style.cssText = 'position:sticky;top:0;z-index:999;background:#E4574C;color:#fff;text-align:center;padding:10px 16px;font:600 13px Inter,sans-serif;';
+  document.body.prepend(banner);
+}
 
 const BACKEND_READY =
   CONFIG.SUPABASE_URL.startsWith('https://') &&
