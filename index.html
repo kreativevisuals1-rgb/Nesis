@@ -1024,6 +1024,7 @@ async function refreshCardsAndCohort() {
       btn.disabled = false;
       btn.textContent = `Register: ${CONFIG.FEE_DISPLAY}`;
       btn.className = 'btn btn-violet prog-register-btn';
+      btn.onclick = () => renderDetailsStep(courseId);
     }
   });
 
@@ -1088,13 +1089,6 @@ async function syncLocalRegsWithBackend() {
 }
 
 /* ---------------- registration flow ---------------- */
-document.querySelectorAll('.prog-register-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const courseId = btn.dataset.course;
-    if (!courseId) return; // state-based buttons override onclick themselves
-    renderDetailsStep(courseId);
-  });
-});
 
 function renderDetailsStep(courseId) {
   const meta = CONFIG.COURSES[courseId];
